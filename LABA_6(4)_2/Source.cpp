@@ -5,7 +5,7 @@
 using namespace std;
 
 template <typename T>
-class QueueBasedOnBidirectionalCircularList {
+class QueueBasedOnBidirectionalCyclicLinkedList {
 private:
     template <typename T>
     class Node {
@@ -36,18 +36,18 @@ public:
     bool Peek(T& element) const;
     bool Push(const T& element);
     bool Pop(T& element);
-    QueueBasedOnBidirectionalCircularList();
-    QueueBasedOnBidirectionalCircularList(const QueueBasedOnBidirectionalCircularList<T>& other);
-    QueueBasedOnBidirectionalCircularList(QueueBasedOnBidirectionalCircularList<T>&& other);
-    QueueBasedOnBidirectionalCircularList(std::initializer_list<T> ilist);
-    ~QueueBasedOnBidirectionalCircularList();
-    QueueBasedOnBidirectionalCircularList<T>& operator=(const QueueBasedOnBidirectionalCircularList<T>& other);
-    QueueBasedOnBidirectionalCircularList<T>& operator=(QueueBasedOnBidirectionalCircularList<T>&& other);
-    QueueBasedOnBidirectionalCircularList<T>& operator=(std::initializer_list<T> ilist);
+    QueueBasedOnBidirectionalCyclicLinkedList();
+    QueueBasedOnBidirectionalCyclicLinkedList(const QueueBasedOnBidirectionalCyclicLinkedList<T>& other);
+    QueueBasedOnBidirectionalCyclicLinkedList(QueueBasedOnBidirectionalCyclicLinkedList<T>&& other);
+    QueueBasedOnBidirectionalCyclicLinkedList(std::initializer_list<T> ilist);
+    ~QueueBasedOnBidirectionalCyclicLinkedList();
+    QueueBasedOnBidirectionalCyclicLinkedList<T>& operator=(const QueueBasedOnBidirectionalCyclicLinkedList<T>& other);
+    QueueBasedOnBidirectionalCyclicLinkedList<T>& operator=(QueueBasedOnBidirectionalCyclicLinkedList<T>&& other);
+    QueueBasedOnBidirectionalCyclicLinkedList<T>& operator=(std::initializer_list<T> ilist);
 };
 
 template<typename T>
-QueueBasedOnBidirectionalCircularList<T>::QueueBasedOnBidirectionalCircularList()
+QueueBasedOnBidirectionalCyclicLinkedList<T>::QueueBasedOnBidirectionalCyclicLinkedList()
 {
     size = 0;
     front = nullptr;
@@ -55,27 +55,27 @@ QueueBasedOnBidirectionalCircularList<T>::QueueBasedOnBidirectionalCircularList(
 }
 
 template<typename T>
-QueueBasedOnBidirectionalCircularList<T>::~QueueBasedOnBidirectionalCircularList() {
+QueueBasedOnBidirectionalCyclicLinkedList<T>::~QueueBasedOnBidirectionalCyclicLinkedList() {
     clear();
 }
 
 template <typename T>
-QueueBasedOnBidirectionalCircularList<T>::QueueBasedOnBidirectionalCircularList(const QueueBasedOnBidirectionalCircularList<T>& other) : front(nullptr), rear(nullptr), size(0) {
+QueueBasedOnBidirectionalCyclicLinkedList<T>::QueueBasedOnBidirectionalCyclicLinkedList(const QueueBasedOnBidirectionalCyclicLinkedList<T>& other) : front(nullptr), rear(nullptr), size(0) {
     *this = other;
 }
 
 template <typename T>
-QueueBasedOnBidirectionalCircularList<T>::QueueBasedOnBidirectionalCircularList(QueueBasedOnBidirectionalCircularList<T>&& other) : front(nullptr), rear(nullptr), size(0) {
+QueueBasedOnBidirectionalCyclicLinkedList<T>::QueueBasedOnBidirectionalCyclicLinkedList(QueueBasedOnBidirectionalCyclicLinkedList<T>&& other) : front(nullptr), rear(nullptr), size(0) {
     *this = std::move(other);
 }
 
 template <typename T>
-QueueBasedOnBidirectionalCircularList<T>::QueueBasedOnBidirectionalCircularList(std::initializer_list<T> ilist) : front(nullptr), rear(nullptr), size(0) {
+QueueBasedOnBidirectionalCyclicLinkedList<T>::QueueBasedOnBidirectionalCyclicLinkedList(std::initializer_list<T> ilist) : front(nullptr), rear(nullptr), size(0) {
     *this = ilist;
 }
 
 template <typename T>
-QueueBasedOnBidirectionalCircularList<T>& QueueBasedOnBidirectionalCircularList<T>::operator=(const QueueBasedOnBidirectionalCircularList<T>& other) {
+QueueBasedOnBidirectionalCyclicLinkedList<T>& QueueBasedOnBidirectionalCyclicLinkedList<T>::operator=(const QueueBasedOnBidirectionalCyclicLinkedList<T>& other) {
     if (this != &other) {
         clear();
         if (other.front != nullptr) {
@@ -94,7 +94,7 @@ QueueBasedOnBidirectionalCircularList<T>& QueueBasedOnBidirectionalCircularList<
 }
 
 template <typename T>
-QueueBasedOnBidirectionalCircularList<T>& QueueBasedOnBidirectionalCircularList<T>::operator=(QueueBasedOnBidirectionalCircularList<T>&& other) {
+QueueBasedOnBidirectionalCyclicLinkedList<T>& QueueBasedOnBidirectionalCyclicLinkedList<T>::operator=(QueueBasedOnBidirectionalCyclicLinkedList<T>&& other) {
     if (this != &other) {
         clear();
         front = other.front;
@@ -109,7 +109,7 @@ QueueBasedOnBidirectionalCircularList<T>& QueueBasedOnBidirectionalCircularList<
 }
 
 template <typename T>
-QueueBasedOnBidirectionalCircularList<T>& QueueBasedOnBidirectionalCircularList<T>::operator=(std::initializer_list<T> ilist) {
+QueueBasedOnBidirectionalCyclicLinkedList<T>& QueueBasedOnBidirectionalCyclicLinkedList<T>::operator=(std::initializer_list<T> ilist) {
     clear();
     for (const T& item : ilist) {
         Enqueue(item);
@@ -118,7 +118,7 @@ QueueBasedOnBidirectionalCircularList<T>& QueueBasedOnBidirectionalCircularList<
 }
 
 template<typename T>
-void QueueBasedOnBidirectionalCircularList<T>::clear() {
+void QueueBasedOnBidirectionalCyclicLinkedList<T>::clear() {
     Node<T>* nextNode;
     while (size > 0) {
         nextNode = front->next;
@@ -132,7 +132,7 @@ void QueueBasedOnBidirectionalCircularList<T>::clear() {
 
 
 template<typename T>
-bool QueueBasedOnBidirectionalCircularList<T>::Push(const T& element) {
+bool QueueBasedOnBidirectionalCyclicLinkedList<T>::Push(const T& element) {
     Node<T>* newNode = new(std::nothrow) Node<T>(element);
     if (newNode == nullptr) {
         return false;
@@ -150,7 +150,7 @@ bool QueueBasedOnBidirectionalCircularList<T>::Push(const T& element) {
 }
 
 template<typename T>
-bool QueueBasedOnBidirectionalCircularList<T>::Pop(T& element) {
+bool QueueBasedOnBidirectionalCyclicLinkedList<T>::Pop(T& element) {
     if (front == nullptr) {
         return false;
     }
@@ -171,7 +171,7 @@ bool QueueBasedOnBidirectionalCircularList<T>::Pop(T& element) {
 }
 
 template<typename T>
-bool QueueBasedOnBidirectionalCircularList<T>::Peek(T& element) const {
+bool QueueBasedOnBidirectionalCyclicLinkedList<T>::Peek(T& element) const {
     if (front == nullptr) {
         return false;
     }
